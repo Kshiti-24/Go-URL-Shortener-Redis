@@ -1,6 +1,6 @@
 # URL-Shortener
 
-> A lightning-fast, production-ready URL shortener microservice built with **Go (Fiber)** and **Redis**, featuring a modern, soft-themed minimalist web interface and containerized with **Docker**.
+> A lightning-fast, URL shortener microservice built with **Go (Fiber)** and **Redis**, featuring a modern, soft-themed minimalist web interface and containerized with **Docker**.
 
 <div align="center">
   <img width="1920" height="926" alt="image" src="https://github.com/user-attachments/assets/b6713d5b-7d4a-4f35-a3bc-b5f44e59d67d" />

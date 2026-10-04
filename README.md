@@ -91,10 +91,3 @@ Open your browser and navigate to:
 | :--- | :--- | :--- | :--- |
 | **GET** | `/:url` | Resolves short code and redirects to target URL | Path parameter: short code |
 | **POST** | `/api/v1` | Creates a new short URL (with optional custom alias) | `{"url": "...", "short": "...", "expiry": 24}` |
-
----
-
-## 👨‍💻 Author
-
-**Kshitiz Agarwal**
-* GitHub: [@Kshiti-24](https://github.com/Kshiti-24)

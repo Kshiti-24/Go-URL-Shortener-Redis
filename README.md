@@ -1,4 +1,4 @@
-# ⚡ URL-Shortener
+# URL-Shortener
 
 > A lightning-fast, production-ready URL shortener microservice built with **Go (Fiber)** and **Redis**, featuring a modern, soft-themed minimalist web interface and containerized with **Docker**.
 
@@ -8,7 +8,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 * **High-Performance Backend**: Built with Go and the Fiber framework for ultra-low latency and high concurrency.
 * **In-Memory Caching & Rate Limiting**: Powered by Redis to manage quick URL lookups, link tracking, and built-in rate-limiting per client.
@@ -19,7 +19,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * **Language**: Go (Golang)
 * **Web Framework**: Fiber v2
@@ -29,7 +29,7 @@
 
 ---
 
-## 📂 Project Architecture
+## Project Architecture
 
 ```text
 URL-Shortner/
@@ -52,7 +52,7 @@ URL-Shortner/
 
 ---
 
-## 🚀 Getting Started Locally
+## Getting Started Locally
 
 ### Prerequisites
 * Go (1.21+) installed on your machine
@@ -81,11 +81,11 @@ docker compose up --build
 ```
 
 Open your browser and navigate to:
-👉 **`http://localhost:3000`**
+**`http://localhost:3000`**
 
 ---
 
-## 💡 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description | Request Body / Params |
 | :--- | :--- | :--- | :--- |

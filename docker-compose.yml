@@ -1,0 +1,15 @@
+services:
+  api:
+    build: api
+    ports:
+      - "3000:3000"
+    environment:
+      DB_ADDR: db:6379
+    depends_on:
+      - db
+  db:
+    build: db
+    ports:
+      - "6379:6379"
+    volumes:
+      - .data:/data

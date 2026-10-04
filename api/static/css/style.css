@@ -1,0 +1,225 @@
+:root {
+  --cream: #faf7f3;
+  --ink: #292524;
+  --muted: #8c8580;
+  --rose: #d98f9e;
+  --rose-dark: #b96f7e;
+  --lavender: #b9a9d8;
+  --peach: #edb895;
+  --sage: #b9cfbe;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.serif {
+  font-family: "Playfair Display", serif;
+}
+
+/* Ambient background */
+.ambient {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(90px);
+  opacity: 0.45;
+  z-index: 0;
+}
+
+.ambient-one {
+  width: 420px;
+  height: 420px;
+  background: #f3ccd3;
+  top: -160px;
+  left: -100px;
+}
+
+.ambient-two {
+  width: 360px;
+  height: 360px;
+  background: #ded4f0;
+  top: 18%;
+  right: -120px;
+}
+
+.ambient-three {
+  width: 300px;
+  height: 300px;
+  background: #f6d7bd;
+  bottom: -120px;
+  left: 25%;
+}
+
+/* Subtle paper texture */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+
+/* Main card */
+.main-card {
+  box-shadow:
+    0 30px 80px rgba(80, 60, 50, 0.08),
+    0 8px 30px rgba(80, 60, 50, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Soft input */
+.soft-input {
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.soft-input:focus {
+  border-color: rgba(217, 143, 158, 0.65);
+  background: #fff;
+  box-shadow:
+    0 0 0 4px rgba(217, 143, 158, 0.08),
+    0 8px 25px rgba(80, 60, 50, 0.04);
+}
+
+/* Button */
+.create-button {
+  background: #292524;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.create-button:hover {
+  background: #3b3634;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(41, 37, 36, 0.15);
+}
+
+.create-button:active {
+  transform: translateY(0);
+}
+
+.create-button:disabled {
+  opacity: 0.75;
+  cursor: wait;
+  transform: none;
+}
+
+/* Result reveal */
+.result-enter {
+  animation: resultReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes resultReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Success check */
+.success-icon {
+  animation: successPop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes successPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Floating decorative elements */
+.sparkle {
+  animation: float 4s ease-in-out infinite;
+}
+
+.sparkle-two {
+  animation: float 5s ease-in-out 1s infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* Copy success */
+.copy-success {
+  animation: copySuccess 0.35s ease;
+}
+
+@keyframes copySuccess {
+  0% {
+    transform: scale(0.94);
+  }
+  70% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d1cc;
+  border-radius: 99px;
+}

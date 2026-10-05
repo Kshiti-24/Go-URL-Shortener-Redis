@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"log"
 	"os"
 	"strconv"
 	"time"
@@ -27,25 +28,41 @@ type response struct {
 	XRateLimitReset time.Duration `json:"x-rate-limit-reset"`
 }
 
-func ShortenURL(c * fiber.Ctx) error {
+func ShortenURL(c *fiber.Ctx) error {
 	body := new(request)
 
 	if err := c.BodyParser(&body); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "cannot parse JSON"})
 	}
 
-	r2 :=database.CreateClient(1)
+	r2 := database.CreateClient(1)
 	defer r2.Close()
-	val, err :=r2.Get(database.Ctx, c.IP()).Result()
+	val, err := r2.Get(database.Ctx, c.IP()).Result()
 
 	if err == redis.Nil {
-		_ = r2.Set(database.Ctx, c.IP(), os.Getenv("API_QUOTA"), 30*60*time.Second).Err()
+		if err := r2.Set(database.Ctx, c.IP(), os.Getenv("API_QUOTA"), 30*60*time.Second).Err(); err != nil {
+			log.Printf("rate-limit Redis initialization failed: %v", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Unable to check rate limit",
+			})
+		}
+	} else if err != nil {
+		log.Printf("rate-limit Redis lookup failed: %v", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Unable to check rate limit",
+		})
 	} else {
-		valInt, _ := strconv.Atoi(val)
+		valInt, err := strconv.Atoi(val)
+		if err != nil {
+			log.Printf("invalid rate-limit value in Redis: %v", err)
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Unable to check rate limit",
+			})
+		}
 		if valInt <= 0 {
 			limit, _ := r2.TTL(database.Ctx, c.IP()).Result()
 			return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{
-				"error":"Rate limit exceeded",
+				"error":            "Rate limit exceeded",
 				"rate_limit_reset": limit / time.Nanosecond / time.Second,
 			})
 		}
@@ -92,10 +109,10 @@ func ShortenURL(c * fiber.Ctx) error {
 	}
 
 	resp := response{
-		URL: body.URL,
-		CustomShort: "",
-		Expiry: body.Expiry,
-		XRateRemaining: 10,
+		URL:             body.URL,
+		CustomShort:     "",
+		Expiry:          body.Expiry,
+		XRateRemaining:  10,
 		XRateLimitReset: 30 * time.Minute / time.Nanosecond / time.Second,
 	}
 

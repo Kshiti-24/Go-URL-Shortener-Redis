@@ -25,7 +25,9 @@ func main() {
 		fmt.Println(err)
 	}
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		ProxyHeader: fiber.HeaderXForwardedFor,
+	})
 
 	app.Use(logger.New())
 
